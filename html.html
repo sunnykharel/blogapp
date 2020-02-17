@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<!-- <div id="like_button_container"></div>
+ -->
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel = "stylesheet" href = "css.css" >
+
+<body style="background-color:white;">
+
+	
+<button type="button" class="btn btn-success">POST</button>
+<button type="button" class="btn btn-danger">SUBSCRIBE</button>
+<button type="button" class="btn btn-warning">UNSUSCRIBE</button>
+
+<!-- these link buttons are just to move the last button -->
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+<button type="button" class="btn btn-link"></button>
+
+
+<button type="button" class="btn btn-info">LOGIN</button>
+
+
+<br>
+<br>
+
+
+<div id="blogPost"></div>
+<script> 
+	function createCORSRequest(method, url) {
+  		var xhr = new XMLHttpRequest();
+	  if ("withCredentials" in xhr) {
+
+	    // Check if the XMLHttpRequest object has a "withCredentials" property.
+	    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+	    xhr.open(method, url, true);
+
+	  } else if (typeof XDomainRequest != "undefined") {
+
+	    // Otherwise, check if XDomainRequest.
+	    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+	    xhr = new XDomainRequest();
+	    xhr.open(method, url);
+
+	  } else {
+
+	    // Otherwise, CORS is not supported by the browser.
+	    xhr = null;
+
+	  }
+	  return xhr;
+	}
+
+
+
+
+
+
+
+
+
+
+	url = "http://localhost:5000/sample_url"
+	const xhr = createCORSRequest('GET',url);
+	const blog_post = document.getElementById("blogPost");
+	xhr.open('GET', url, true)
+	xhr.onload = function(){
+		if (this.status == 200){
+			blog_post.innerHTML = xhr.responseText;
+		}
+		else{
+
+			console.warn("Lets assume this works")
+		}
+	}
+	
+	xhr.send();
+</script>
+<div class="sthelese">
+					 <h1>Sunny has no Money</h1>
+                     <!-- incase we wanna add the image feature: -->
+                     <!-- <img src= link   > -->
+                   
+                     <article><p>
+                         Blog post text goes here. Blog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes here
+                         </p></article>
+                 </div>
+
+<!-- Load React.
+ -->  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+
+<!--   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+ -->
+  <!-- Load our React component. -->
+<!--   <script src="like_button.js"></script> -->
+
+</body>
+
+</html>
