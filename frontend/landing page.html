@@ -91,13 +91,19 @@
 	  return xhr;
 	}
 
-	url = "http://localhost:5000/sample_url"
+	url = "http://72.182.124.170"
 	const xhr = createCORSRequest('GET',url);
 	const blog_post = document.getElementById("blogPost");
 	xhr.open('GET', url, true)
 	xhr.onload = function(){
 		if (this.status == 200){
-			blog_post.innerHTML = xhr.responseText;
+			var subPosts = xhr.split("</p>");
+			var innerHtml = "";
+			for( i = 0; i<subPosts.length(); i++){
+
+				innerHtml += (subPosts[i] + "</p>").responseText ;
+			}
+			blog_post.innerHTML=innerHtml;
 		}
 		else{
 
@@ -116,15 +122,6 @@
                          Blog post text goes here. Blog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes here
                          </p></article>
                  </div> -->
-
-<!-- Load React.
- -->  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-
-<!--   <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
- -->
-  <!-- Load our React component. -->
-<!--   <script src="like_button.js"></script> -->
 
 </body>
 
