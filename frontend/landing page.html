@@ -9,20 +9,23 @@
 
 <link rel = "stylesheet" href = "css.css" >
 
-<body style="background-color:white;">
+<body >
 
-	
-<button type="button" class="btn btn-success">POST</button>
+
+<img src= "logo.png"> 
+
+
+<button type="button" class="btn btn-success" onclick="location.href = 'postpage.html'">POST</button>
+
+
+
+
 <button type="button" class="btn btn-danger">SUBSCRIBE</button>
 <button type="button" class="btn btn-warning">UNSUSCRIBE</button>
 
 <!-- these link buttons are just to move the last button -->
-<button type="button" class="btn btn-link"></button>
-<button type="button" class="btn btn-link"></button>
-<button type="button" class="btn btn-link"></button>
-<button type="button" class="btn btn-link"></button>
-<button type="button" class="btn btn-link"></button>
-<button type="button" class="btn btn-link"></button>
+
+
 <button type="button" class="btn btn-link"></button>
 <button type="button" class="btn btn-link"></button>
 <button type="button" class="btn btn-link"></button>
@@ -59,10 +62,8 @@
 
 <button type="button" class="btn btn-info">LOGIN</button>
 
-
 <br>
 <br>
-
 
 <div id="blogPost"></div>
 <script> 
@@ -90,15 +91,6 @@
 	  return xhr;
 	}
 
-
-
-
-
-
-
-
-
-
 	url = "http://localhost:5000/sample_url"
 	const xhr = createCORSRequest('GET',url);
 	const blog_post = document.getElementById("blogPost");
@@ -115,15 +107,15 @@
 	
 	xhr.send();
 </script>
-<div class="sthelese">
-					 <h1>Sunny has no Money</h1>
+<!-- <div class="sthelese">
+					 <h1>Sunny has no Money</h1> -->
                      <!-- incase we wanna add the image feature: -->
                      <!-- <img src= link   > -->
                    
-                     <article><p>
+                    <!--  <article><p>
                          Blog post text goes here. Blog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes here
                          </p></article>
-                 </div>
+                 </div> -->
 
 <!-- Load React.
  -->  <!-- Note: when deploying, replace "development.js" with "production.min.js". -->

@@ -1,0 +1,23 @@
+
+#blogPost {
+
+	border: 2px solid black;
+	
+}
+
+body {
+	background-color: #00CED1;
+}
+
+#text1 {
+	width: 1530px;
+	height: 30px;
+}
+
+
+#text2 {
+	width: 1530px;
+	height: 300px;
+}
+
+
