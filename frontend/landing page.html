@@ -9,6 +9,10 @@
 
 <link rel = "stylesheet" href = "css.css" >
 
+<head>
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+</head>
+
 <body >
 
 
@@ -18,13 +22,10 @@
 <button type="button" class="btn btn-success" onclick="location.href = 'postpage.html'">POST</button>
 
 
-
-
 <button type="button" class="btn btn-danger">SUBSCRIBE</button>
 <button type="button" class="btn btn-warning">UNSUSCRIBE</button>
 
 <!-- these link buttons are just to move the last button -->
-
 
 <button type="button" class="btn btn-link"></button>
 <button type="button" class="btn btn-link"></button>
@@ -65,6 +66,7 @@
 <br>
 <br>
 
+
 <div id="blogPost"></div>
 <script> 
 	function createCORSRequest(method, url) {
@@ -91,20 +93,40 @@
 	  return xhr;
 	}
 
-	url = "http://72.182.124.170"
+	url = "http://localhost:5000/sample_url"
 	const xhr = createCORSRequest('GET',url);
 	const blog_post = document.getElementById("blogPost");
 	xhr.open('GET', url, true)
 	xhr.onload = function(){
 		if (this.status == 200){
-			var subPosts = xhr.split("</p>");
-			var innerHtml = "";
-			for( i = 0; i<subPosts.length(); i++){
+			// var subPosts = xhr.split("</p>");
+			// var innerHtml = "";
+		// 	for( i = 0; i<subPosts.length(); i++){
+		// 		.responseText ;
+		// 	}
+		// 	blog_post.innerHTML=innerHtml;
+		// }
+		//var split = xhr.responseText.split('</p>');
+		//console.log(split);
+		//for(i = 0; i < split.length; i++){
+			// var name = document.getElementById("blogPost");
+			// var element = document.createElement(tagName[name]);
+		//split[i] = split[i] + '</p>';
+		//i = 1;
 
-				innerHtml += (subPosts[i] + "</p>").responseText ;
-			}
-			blog_post.innerHTML=innerHtml;
-		}
+		// var split = xhr.responseText.split('</p>');
+		// var x = split.length;
+		// if(x >= 7){
+		// 	var btn = document.createElement("btn-link");   // Create a <button> element
+		// btn.innerHTML = "Read More Posts";                   // Insert text
+		// //btn.innerHTML.class = "btn-link";
+		// document.body.appendChild(btn);               // Append <button> to <body>
+		// }
+
+		blog_post.innerHTML = xhr.responseText;
+		//blog_post.innerHTML = xhr.responseText;
+	
+	}
 		else{
 
 			console.warn("Lets assume this works")
@@ -113,15 +135,33 @@
 	
 	xhr.send();
 </script>
-<!-- <div class="sthelese">
-					 <h1>Sunny has no Money</h1> -->
-                     <!-- incase we wanna add the image feature: -->
-                     <!-- <img src= link   > -->
-                   
-                    <!--  <article><p>
-                         Blog post text goes here. Blog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes hereBlog post text goes here
-                         </p></article>
-                 </div> -->
+
+<button type="button" class="btn btn-link">Read More Posts</button>
+
+<div id="my-signin2"></div>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+
 
 </body>
 

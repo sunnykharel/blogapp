@@ -61,10 +61,19 @@
 
 	function postIt(){
 
+
+
+
+		//first get the info from the text fields
+		var title = document.getElementById("text1").value;
+		var text = document.getElementById("text2").value;
+
+		
+
 	url = "http://72.182.124.170:5000/blogposts/add"
 
-	var x = document.getElementById("fun");
-	 x.style.display = "none" ;
+	// var x = document.getElementById("fun");
+	//  x.style.display = "none";
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', url, true);
 	var data = new FormData();
@@ -72,7 +81,6 @@
 	data.append('date', 'today');
 	data.append('post', 'a post');
 	xhr.send(data);
-
 
 	// var xhr = new XMLHttpRequest();
 	// var url = "http://72.182.124.170:5000/blogposts/add";
