@@ -67,8 +67,11 @@
 <br>
 
 
+
 <div id="blogPost"></div>
+
 <script> 
+
 	function createCORSRequest(method, url) {
   		var xhr = new XMLHttpRequest();
 	  if ("withCredentials" in xhr) {
@@ -99,69 +102,35 @@
 	xhr.open('GET', url, true)
 	xhr.onload = function(){
 		if (this.status == 200){
-			// var subPosts = xhr.split("</p>");
-			// var innerHtml = "";
-		// 	for( i = 0; i<subPosts.length(); i++){
-		// 		.responseText ;
-		// 	}
-		// 	blog_post.innerHTML=innerHtml;
-		// }
-		//var split = xhr.responseText.split('</p>');
-		//console.log(split);
-		//for(i = 0; i < split.length; i++){
-			// var name = document.getElementById("blogPost");
-			// var element = document.createElement(tagName[name]);
-		//split[i] = split[i] + '</p>';
-		//i = 1;
-
-		// var split = xhr.responseText.split('</p>');
-		// var x = split.length;
-		// if(x >= 7){
-		// 	var btn = document.createElement("btn-link");   // Create a <button> element
-		// btn.innerHTML = "Read More Posts";                   // Insert text
-		// //btn.innerHTML.class = "btn-link";
-		// document.body.appendChild(btn);               // Append <button> to <body>
-		// }
-
-		blog_post.innerHTML = xhr.responseText;
-		//blog_post.innerHTML = xhr.responseText;
-	
-	}
+			subPosts = xhr.responseText.split('</p>');
+			innerHtml = "";
+			for( i = 0; i<subPosts.length && i < 5; i++){
+				innerHtml= innerHtml +' </p> '+subPosts[i];
+			}
+			var num = subPosts.length;
+			blog_post.innerHTML=innerHtml;//innerHtml+'</p>';
+		}
 		else{
 
 			console.warn("Lets assume this works")
 		}
 	}
-	
 	xhr.send();
+	
+function morePosts()  {
+	for(j = 5 ; j < subPosts.length-1; j++){
+		innerHtml = innerHtml +' </p> '+ subPosts[j];
+	}
+	blog_post.innerHTML=innerHtml;
+	var x = document.getElementById("read btn");
+	x.style.display = "none";
+
+//xhr.send();
+}
+
 </script>
 
-<button type="button" class="btn btn-link">Read More Posts</button>
-
-<div id="my-signin2"></div>
-  <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 240,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
-  </script>
-
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
-
+<button type="button" class="btn btn-link" id = "read btn" onclick="morePosts()">Read All Posts</button>
 
 </body>
 
