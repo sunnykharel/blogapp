@@ -7,10 +7,16 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<link rel = "stylesheet" href = "css.css" >
+<link rel = "stylesheet" href = "css/css.css" >
 
 
-<head>
+<body>
+
+<img src= "images/logo.png">
+
+<br>
+<br>
+
   <title>Google Signin</title>
   <meta name="google-signin-client_id" content="943622887340-2qaen0te8c0q2of6pk9k4u691kpd52te.apps.googleusercontent.com">
   <script src="https://apis.google.com/js/platform.js" asynch defer></script>
@@ -34,38 +40,76 @@
   
   <style>
     .g-signin2{
-      margin-left:500px;
-      margin-top:200px;
+      margin-left:0px; //1410
+      margin-bottom:10px;
     }
     .data{
       display:none;
     }
+    
   </style>
-</head>
-<body>
+
   <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <div class="data">
     <button onclick="signOut()" class="btn btn-danger">SignOut</button>
   </div>
-</body>
 
+<br>
 
-
-<body>
-
-<img src= "/images/logo.png">
-
-
-<button type="button" class="btn btn-success" onclick="location.href ='postpage.html'">POST</button>
-
+<button type="button" class="btn btn-success" onclick="postStuff()">POST</button>
 
 <button type="button" class="btn btn-danger">SUBSCRIBE</button>
 <button type="button" class="btn btn-warning">UNSUSCRIBE</button>
-<button type="button" class="btn btn-info">LOGIN</button>
+
+<script> 
+
+    
+var   flag = 1;  //1 means no post box showing while 0 means its currently showing
+
+
+function postStuff(){
+    var y = document.getElementsByClassName("postStuff");
+    for (k = 0; k < y.length; k++){
+    y[k].style.display = "block";
+}
+}
+
+</script>
+
+<br class="postStuff" >
+<br class="postStuff" >
+<h3 class="postStuff" > Type your post title here: </h3>
+<br class="postStuff" >
+<input type="text" id = "text1" class="postStuff" >
+<br class="postStuff" >
+<h3 class="postStuff" > Type your post body here: </h3>
+<br class="postStuff" >
+<textarea class="postStuff" id = "text2" >  </textarea> 
+<br class="postStuff" >
+<button type="button" class="btn btn-success postStuff postbtns" onclick="postIt()" >POST</button>
+<button type="button" class="btn btn-danger postStuff postbtns" onclick="cancelIt()" >CANCEL</button>
+
+
+<script>
+
+
+function postIt(){
+ //this is to send info to the server about the new blog post to be sent 
+    var title = document.getElementById("text1").value;
+	var text = document.getElementById("text2").value;
+}
+
+function cancelIt(){
+    var x = document.getElementsByClassName("postStuff");
+    for (i = 0; i < x.length; i++){
+    x[i].style.display = "none";
+}
+}
+    
+</script>
 
 <br>
 <br>
-
 
 <div id="blogPost"></div>
 
@@ -101,12 +145,23 @@
 	xhr.open('GET', url, true)
 	xhr.onload = function(){
 		if (this.status == 200){
-			subPosts = xhr.responseText.split('</p>');
+            
+            blog_responses = JSON.parse(xhr.responseText);
+            console.log("Original API response", blog_responses.length);
+			
+            <!-- subPosts = xhr.responseText.split('</p>'); -->
 			innerHtml = "";
-			for( i = 0; i<subPosts.length && i < 5; i++){
-				innerHtml= innerHtml +' </p> '+subPosts[i];
+			for( i = 0; i<blog_responses.length && i < 2; i++){
+                blog_response = blog_responses[i];
+                innerHtml += "<h3> Title: " + blog_response['title'] + " </h3";
+                innerHtml += "<h4>User: ";
+                innerHtml += blog_response['email'] + "</h4>";
+                innerHtml += "<br>";
+                innerHtml += "<h5> Date: " + blog_response['updatedAt'] + "</h5><br>";
+                innerHtml += "<p>" + blog_response['post'] + "</p> <br>";
+
 			}
-			var num = subPosts.length;
+			<!-- var num = subPosts.length; -->
 			blog_post.innerHTML=innerHtml;//innerHtml+'</p>';
 		}
 		else{
@@ -117,8 +172,16 @@
 	xhr.send();
 	
 function morePosts()  {
-	for(j = 5 ; j < subPosts.length-1; j++){
-		innerHtml = innerHtml +' </p> '+ subPosts[j];
+    
+	innerHtml = "";
+    for(j = 0 ; j < blog_responses.length; j++){
+		blog_response = blog_responses[j];
+        innerHtml += "<h3> Title: " + blog_response['title'] + " </h3>";
+        innerHtml += "<h4>User: ";
+        innerHtml += blog_response['email'] + "</h4>";
+        innerHtml += "<br>";
+        innerHtml += "<h5> Date: " + blog_response['updatedAt'] + "</h5><br>";
+        innerHtml += "<p>" + blog_response['post'] + "</p> <br>";
 	}
 	blog_post.innerHTML=innerHtml;
 	var x = document.getElementById("read btn");
@@ -129,8 +192,9 @@ function morePosts()  {
 
 </script>
 
+<div>
 <button type="button" class="btn btn-link" id = "read btn" onclick="morePosts()">Read All Posts</button>
-
+</div>
 </body>
 
 </html>
