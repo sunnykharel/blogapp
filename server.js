@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
-
+//sunny followed a tutorial and was driving while aaskar was navigating
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +25,8 @@ const subscriptionsRouter = require('./routes/subscriptions');
  
 app.use('/blogposts', blogpostsRouter);
 app.use('/subscriptions', subscriptionsRouter);
+
+app.use(express.static(__dirname + '/public'));
 
 app.get('/*', (req, res) => {
     res.sendFile(__dirname+ '/frontend/www/index.html');

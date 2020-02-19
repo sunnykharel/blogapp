@@ -1,7 +1,9 @@
+
+
 <!DOCTYPE html>
 <html>
 
-<!-- <div id="like_button_container"></div>
+<!-- Askar was driving while sunny was navigating
  -->
 
 
@@ -24,9 +26,10 @@
   <script> 
     var profile;
     function onSignIn(googleUser){
-      profile=googleUser.getBasicProfile;
+      profile=googleUser.getBasicProfile();
       $(".g-signin2").css("display","none");
       $(".data").css("display","block");
+      $(".loginButtons").css("display", "block");
     }
     function signOut(){
       var auth2 = gapi.auth2.getAuthInstance();
@@ -34,8 +37,8 @@
         alert("You've been successfully signed out");
         $(".g-signin2").css("display","block");
         $(".data").css("display","none");
+        $(".loginButtons").css("display", "none");
       })
-
     }
   </script>
   
@@ -47,6 +50,9 @@
     .data{
       display:none;
     }
+    .loginButtons{
+        display:none;
+    }
     
   </style>
 
@@ -57,20 +63,38 @@
 
 <br>
 
-<button type="button" class="btn btn-success" onclick="postStuff()">POST</button>
+<button type="button" class="btn btn-success loginButtons" onclick="postStuff()">NEW POST</button>
 
-<button type="button" class="btn btn-danger">SUBSCRIBE</button>
-<button type="button" class="btn btn-warning">UNSUSCRIBE</button>
+<button type="button" class="btn btn-danger loginButtons" onclick="subscribe()">SUBSCRIBE</button>
+<button type="button" class="btn btn-warning loginButtons" onclick="unsubscribe()">UNSUSCRIBE</button>
 
 <script> 
 
+    function unsubscribe(){
+        var email = profile.getEmail();
+        const xhr = createCORSRequest('POST',"/subscriptions/delete");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function(){
+            if (this.status == 200){
+                location.reload(true);
+            }
+        }
+        xhr.send(JSON.stringify({"email":email}));
+    }
     
-var   flag = 1;  //1 means no post box showing while 0 means its currently showing
+    function subscribe(){
+        var email = profile.getEmail();
+        const xhr = createCORSRequest('POST',"/subscriptions/add");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function(){
+		if (this.status == 200){
+            location.reload(true);
+        }
+    }
+        xhr.send(JSON.stringify({"email":email}));
+    }
 
-<<<<<<< HEAD
-=======
-<img src= "images/logo.png">
->>>>>>> ac9d0aedbef9332b7e4cdf3e53e384af5cf23216
+var   flag = 1;  //1 means no post box showing while 0 means its currently showing
 
 function postStuff(){
     var y = document.getElementsByClassName("postStuff");
@@ -102,6 +126,20 @@ function postIt(){
  //this is to send info to the server about the new blog post to be sent 
     var title = document.getElementById("text1").value;
 	var text = document.getElementById("text2").value;
+    var email = profile.getEmail();
+    var date = "Sunny L.";
+    console.log(title, email);
+    url = "https://t-collective-268505.appspot.com/blogposts/add"
+	const xhr = createCORSRequest('POST',"/blogposts/add");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function(){
+		if (this.status == 200){
+            location.reload(true);
+        }
+    }
+    xhr.send(JSON.stringify({"email":email, "date":date, "title": title, "post":text}));
+
+
 }
 
 function cancelIt(){
@@ -153,10 +191,8 @@ function cancelIt(){
             
             blog_responses = JSON.parse(xhr.responseText);
             console.log("Original API response", blog_responses.length);
-			
-            <!-- subPosts = xhr.responseText.split('</p>'); -->
 			innerHtml = "";
-			for( i = 0; i<blog_responses.length && i < 2; i++){
+			for( i = blog_responses.length-1; i>0 && i>blog_responses.length-5; i--){
                 blog_response = blog_responses[i];
                 innerHtml += "<h3> Title: " + blog_response['title'] + " </h3";
                 innerHtml += "<h4>User: ";
@@ -164,10 +200,8 @@ function cancelIt(){
                 innerHtml += "<br>";
                 innerHtml += "<h5> Date: " + blog_response['updatedAt'] + "</h5><br>";
                 innerHtml += "<p>" + blog_response['post'] + "</p> <br>";
-
 			}
-			<!-- var num = subPosts.length; -->
-			blog_post.innerHTML=innerHtml;//innerHtml+'</p>';
+			blog_post.innerHTML=innerHtml;
 		}
 		else{
 
@@ -179,7 +213,7 @@ function cancelIt(){
 function morePosts()  {
     
 	innerHtml = "";
-    for(j = 0 ; j < blog_responses.length; j++){
+    for(j = blog_responses.length-1 ; j>0; j--){
 		blog_response = blog_responses[j];
         innerHtml += "<h3> Title: " + blog_response['title'] + " </h3>";
         innerHtml += "<h4>User: ";
