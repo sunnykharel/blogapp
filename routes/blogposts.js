@@ -10,11 +10,13 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const email = req.body.email;
+    const title = req.body.title;
     const date = req.body.date;
     const post = req.body.post;
 
     const newBlogpost = new Blogpost({
         email,
+        title,
         date,
         post,
     });
