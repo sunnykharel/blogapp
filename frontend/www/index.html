@@ -76,8 +76,10 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function(){
             if (this.status == 200){
-                location.reload(true);
-            }
+                alert("You've been unsubscribed");
+            } else {
+            alert("Error unsubscribing");
+        }
         }
         xhr.send(JSON.stringify({"email":email}));
     }
@@ -88,7 +90,10 @@
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onload = function(){
 		if (this.status == 200){
-            location.reload(true);
+            alert("You've successfully been subscribed");
+        } else {
+            alert("Error subscribing");
+
         }
     }
         xhr.send(JSON.stringify({"email":email}));
@@ -229,10 +234,28 @@ function morePosts()  {
 //xhr.send();
 }
 
+function morePostsRev(){
+    innerHtml = "";
+    for(k = 0; k < blog_responses.length  ;k++){
+		blog_response = blog_responses[k];
+        innerHtml += "<h3> Title: " + blog_response['title'] + " </h3>";
+        innerHtml += "<h4>User: ";
+        innerHtml += blog_response['email'] + "</h4>";
+        innerHtml += "<br>";
+        innerHtml += "<h5> Date: " + blog_response['updatedAt'] + "</h5><br>";
+        innerHtml += "<p>" + blog_response['post'] + "</p> <br>";
+	}
+	blog_post.innerHTML=innerHtml;
+	var x = document.getElementById("read btn2");
+	x.style.display = "none";
+}
+
 </script>
 
 <div>
 <button type="button" class="btn btn-link" id = "read btn" onclick="morePosts()">Read All Posts</button>
+<button type="button" class="btn btn-link" id = "read btn2" onclick="morePostsRev()">Read All Posts in Reverse Order</button>
+
 </div>
 </body>
 
