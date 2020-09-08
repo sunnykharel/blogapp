@@ -1,2 +1,2 @@
 # blogapp
-A blog app class assignment made to learn pair programming and web development basics
+A blog app written with the MERN Stack
